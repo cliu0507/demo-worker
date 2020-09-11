@@ -8,3 +8,6 @@ matplotlib
 tqdm
 imagesize
 pika
+segmentation-models-pytorch
+opencv-python
+albumentations
