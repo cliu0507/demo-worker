@@ -4,7 +4,7 @@ import segmentation_models_pytorch as smp
 from segmentation_models_pytorch.encoders import get_preprocessing_fn
 import albumentations as albu
 
-image_path='/home/cliu/Github_cliu/demo-worker/test2.jpg'
+image_path= '/dataset/test2.jpg'
 image = cv2.imread(image_path)
 image = cv2.resize(image,dsize=(512,512))
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

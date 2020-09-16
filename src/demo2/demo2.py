@@ -5,8 +5,7 @@ from torchvision import transforms
 model = torch.hub.load('pytorch/vision:v0.6.0', 'deeplabv3_resnet101', pretrained=True)
 model.eval()
 
-
-filename='/home/cliu/Github_cliu/demo-worker/test2.jpg'
+filename= '/dataset/test2.jpg'
 
 preprocess = transforms.Compose([
     transforms.ToTensor(),
