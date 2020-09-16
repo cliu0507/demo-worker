@@ -1,7 +1,7 @@
 # demo-worker
 demo worker in python
 
-## installation (First time creation)
+## Installation (First time creation)
 1. install conda env
 2. create new python env
     ```
@@ -12,3 +12,12 @@ demo worker in python
     pip install -r requirement.txt
     ```
    
+## Start Guide
+1. switch to correct python conda environment
+    ```
+    source activate base37-demo
+    ```
+2. launch worker
+    ```
+    python worker.py
+    ```
