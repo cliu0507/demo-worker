@@ -11,3 +11,4 @@ pika
 segmentation-models-pytorch
 opencv-python
 albumentations
+pymongo
