@@ -30,7 +30,7 @@ def main():
     channel.basic_consume(queue=queue_name,
                           on_message_callback=lambda ch, method, properties, body: my_callback_with_extended_args(ch,method,properties,body,workflow=workflow,db=db),
                           auto_ack=True)
-    print(' [*] waiting for messages, to exit press CTRL+C')
+    print(' [*] waiting for messages, to exit press CTRL+C\n')
     channel.start_consuming()
 
 
@@ -84,11 +84,11 @@ def my_callback_with_extended_args(ch, method, properties, body, workflow, db):
         new_query = {"jobId": job_id}
         new_value = {"$set": {"jobStatus": "completed"}}
         db[collection_name].update_one(new_query, new_value)
-        print(' [*] waiting for messages. To exit press CTRL+C')
+        print(' [*] waiting for messages. To exit press CTRL+C\n')
     except Exception as e:
         traceback.print_exc()
         print(" [x] exception! --- job id %s" % job_id)
-        print(' [*] waiting for messages. To exit press CTRL+C')
+        print(' [*] waiting for messages. To exit press CTRL+C\n')
 
 
 if __name__ == '__main__':
