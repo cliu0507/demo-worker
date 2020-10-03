@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from src.demo2.workflow_deeplab_v3 import WorkflowDeeplabV3
 import gridfs
 from bson.objectid import ObjectId
-
+import traceback
 
 def main():
     # set variables
@@ -85,7 +85,8 @@ def my_callback_with_extended_args(ch, method, properties, body, workflow, db):
         new_value = {"$set": {"jobStatus": "completed"}}
         db[collection_name].update_one(new_query, new_value)
         print(' [*] waiting for messages. To exit press CTRL+C')
-    except:
+    except Exception as e:
+        traceback.print_exc()
         print(" [x] exception! --- job id %s" % job_id)
         print(' [*] waiting for messages. To exit press CTRL+C')
 
