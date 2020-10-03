@@ -70,7 +70,7 @@ def my_callback_with_extended_args(ch, method, properties, body, workflow, db):
         output_filepath = os.path.join(output_folder_path, 'result.png')
 
         # update status to 'processing' in database
-        print(" [x] update job status to database")
+        print(" [x] update job status to 'processing' in database")
         new_query = {"jobId": job_id}
         new_value = {"$set": {"jobStatus": "processing"}}
         db[collection_name].update_one(new_query, new_value)
@@ -79,8 +79,17 @@ def my_callback_with_extended_args(ch, method, properties, body, workflow, db):
         workflow.start(input_filepath=new_file_name_path, output_filepath=output_filepath)
         print(" [x] complete! result dumped into %r " % output_filepath)
 
+        # upload result to GridFS
+        result_file_id = str(fs.put(open(output_filepath, 'rb'), filename=str(job_id) + '_result'))
+
+        # append result_file_id to record in database
+        print(" [x] add resultFileId in status in database")
+        new_query = {"jobId": job_id}
+        new_value = {"$set": {"resultFileId": result_file_id}}
+        db[collection_name].update_one(new_query, new_value)
+
         # update status to 'completed' in database
-        print(" [x] update job status to database")
+        print(" [x] update job status to 'completed' in database")
         new_query = {"jobId": job_id}
         new_value = {"$set": {"jobStatus": "completed"}}
         db[collection_name].update_one(new_query, new_value)
