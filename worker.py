@@ -1,6 +1,6 @@
 import pika, sys, os
 from pymongo import MongoClient
-from src.demo2.workflow_deeplab_v3 import WorkflowDeeplabV3
+from src.demo1.workflow_deeplab_v3 import WorkflowDeeplabV3
 import gridfs
 from bson.objectid import ObjectId
 import traceback
