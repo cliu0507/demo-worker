@@ -10,3 +10,5 @@ tmp/
 src/demo1/__pycache__/
 
 src/domo_detect/
+
+demo/
