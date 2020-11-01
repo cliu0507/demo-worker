@@ -5,6 +5,8 @@ import gridfs
 from bson.objectid import ObjectId
 import traceback
 
+from src.domo_detect.workflow_domo_detect import WorkflowDomoDetect
+
 def main():
     # set variables
     global collection_name
@@ -30,6 +32,22 @@ def main():
     channel.basic_consume(queue=queue_name,
                           on_message_callback=lambda ch, method, properties, body: my_callback_with_extended_args(ch,method,properties,body,workflow=workflow,db=db),
                           auto_ack=True)
+
+    # another workflow
+    channel2 = connection.channel()
+    # another ML workflow
+    workflow2 = WorkflowDomoDetect()
+    queue_name2 = 'domo-detect'
+    channel2.queue_declare(queue=queue_name2)
+    channel2.basic_consume(queue=queue_name2,
+                          on_message_callback=lambda ch, method, properties, body: my_callback_with_extended_args(ch,
+                                                                                                                  method,
+                                                                                                                  properties,
+                                                                                                                  body,
+                                                                                                                  workflow=workflow2,
+                                                                                                                  db=db),
+                          auto_ack=True)
+
     print(' [*] waiting for messages, to exit press CTRL+C\n')
     channel.start_consuming()
 
